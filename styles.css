@@ -1,0 +1,24 @@
+html,body{
+  padding:0;
+  margin:0;
+  height:100%;
+  background-color: #3b3232;
+  color:#fff;
+}
+
+.container {
+  max-width: 700px;
+  width:100%;
+  margin:auto;
+  text-align: center;
+  text-wrap:wrap;
+}
+
+a {
+  color:#d36c27;
+  font-size:1.4em;
+}
+
+ul li {
+  list-style: none;
+}
