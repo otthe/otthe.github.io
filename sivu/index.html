@@ -16,27 +16,59 @@
   <h2>Sivu - Docs</h2>
   <a href="#intro">Introduction</a>
   <a href="#syntax">Syntax</a>
+  <a href="#get-started">Get started</a>
   <a href="#functions">Functions</a>
   <a href="#superglobals">Superglobals</a>
-  <a href="#examples">Examples</a>
+  <a href="#things-to-consider">Things to consider</a>
 </div>
 
 <div class="content">
 
   <section id="intro">
-    <h1>My DSL</h1>
+    <h1>Sivu</h1>
     <p>
-      This is a small DSL built on top of JavaScript. It simplifies writing logic
-      using a more declarative syntax.
+      <strong>Sivu</strong> is a server-side templating DSL built on top of Express.js
+      that lets you write backend JavaScript directly inside HTML using
+      PHP-style syntax.
     </p>
     
   </section>
-
   <section id="syntax">
     <h2>Syntax</h2>
-    <p>Basic syntax example:</p>
+    <pre><code>
+&lt;!-- index.sivu --&gt;
+
+&lt;?sivu
+  const { formatDate } = await $import("./format.js");
+  let title = "Sivu Todo Example";
+  const todos = await db.query("SELECT * FROM todos");
+?&gt;
+
+&lt;?include "_header.sivu"?&gt;
+
+&lt;script nonce="&lt;?= $nonce(); ?&gt;"&gt;
+  console.log("executed on client!");
+&lt;/script&gt;
+
+&lt;form method="POST" action="/add_todo.sivu"&gt;
+  &lt;?= $csrf($_SESSION) ?&gt;
+  &lt;label&gt;Task name&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" name="taskname"&gt;&lt;br&gt;
+  &lt;button&gt;Add Todo&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;?sivu for (const todo of todos) { ?&gt;
+  &lt;h4&gt;&lt;?= todo.task_name ?&gt;&lt;/h4&gt;
+  &lt;?= formatDate(todo.due) ?&gt;
+&lt;?sivu } ?&gt;
+      </code></pre>
   </section>
 
+  <section id="get-started">
+    <h2>Get started</h2>
+    <a href="https://www.github.com/otthe/sivu">See the installation instructions on GitHub</a>
+  </section>
+ 
   <section id="functions">
     <h2>Built-in Functions</h2>
     <p>
@@ -269,7 +301,7 @@
   </section>
 
   <section id="superglobals">
-    <h2>$_SUPERGLOBALS</h2>
+    <h2>Superglobals</h2>
   
     <p>These variables are always available inside templates.</p>
   
@@ -277,8 +309,8 @@
       <h3>$_GET</h3>
       <p>Query parameters from URL.</p>
       <pre><code>
-  // /page?name=John
-  $_GET.name // "John"
+// /page?name=John
+$_GET.name // "John"
       </code></pre>
     </div>
   
@@ -290,6 +322,10 @@
     <div class="function">
       <h3>$_SESSION</h3>
       <p>Session data storage.</p>
+
+      <pre><code>
+$csrf($_SESSION)
+      </code></pre>
     </div>
   
     <div class="function">
@@ -307,22 +343,22 @@
       <p>Request metadata.</p>
   
       <pre><code>
-  $_SERVER.requestMethod
-  $_SERVER.requestUri
-  $_SERVER.httpHost
-  $_SERVER.httpUserAgent
+$_SERVER.requestMethod
+$_SERVER.requestUri
+$_SERVER.httpHost
+$_SERVER.httpUserAgent
+$dump($_SERVER)
       </code></pre>
     </div>
   
   </section>
 
-  <section id="examples">
-    <h2>Examples</h2>
-
-    <pre><code>
-let result = add(10, 20)
-print(result)
-    </code></pre>
+  <section id="things-to-consider">
+    <h2>Things to consider</h2>
+    <p>
+      Sivu is in a very early stage and might contain some bugs and security issues.
+      Also this documentation might not always be 100% accurate.
+    </p>
   </section>
 
 </div>
