@@ -1,4 +1,4 @@
-![Markdown Logo](/sivu2/sivulogo_valmis.png)
+![Markdown Logo](/sivu/sivulogo_valmis.png)
 
 # Sivu (v.0.1)
 ---
