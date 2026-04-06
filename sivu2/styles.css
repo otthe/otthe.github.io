@@ -168,3 +168,7 @@ section ul {
 section li {
   margin: 6px 0;
 }
+
+p img {
+  width:192px;
+}

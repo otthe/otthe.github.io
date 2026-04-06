@@ -1,13 +1,13 @@
 # Syntax
 
-Sivu uses PHP-style tags.
+Sivu utilizes PHP-like syntax to embed backend javascript straight to templates. There is also some <a href="#functions">`$builtInFunctions();`</a> and  <a href="#superglobals">`$_SUPERGLOBALS`</a> to make communication with server possible.  
 
 ## Snippets
 Sivu syntax includes:
-- Script-tags
+- Scripts
 - Expressions
 - Includes
-- Meta-tags
+- Metadata
 ---
 ### Scripts
 Scripts allow you to embed server-executed javascript code inside the templates. Despite that, you can and you should write more complex js code into it's own modules and just utilize built-in function `$import` to call functions from that module.
