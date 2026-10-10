@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>NoFileSlides - Builder</title>
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2" defer></script>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+        defer
+    ></script>
+
+    <script src="slideshow.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="builder">
+        <!-- SIDEBAR -->
+        <aside class="builder-sidebar">
+          <header class="builder-header">
+            <!-- <span class="brand-mark" aria-hidden="true">NFS</span>  
+            <h1>NoFileSlides</h1>
+            <p>Not every presentation is worth a file!</p> -->
+            <a class="brand brand-logo" href="/" aria-label="NoFileSlides home">
+              <span class="brand-mark" aria-hidden="true">NFS</span>
+              <span>NoFileSlides</span>
+            </a>
+          </header>
+
+          <!-- SLIDES -->
+          <section class="editor-section">
+            <h2>Slides</h2>
+
+            <div id="slides-list" class="slides-list"></div>
+
+            <br>
+            <button id="add-slide" class="button secondary" type="button">
+              + Add slide
+            </button>
+          </section>
+
+          <!-- SLIDE CONTROLS -->
+          <!-- APPEARANCE -->
+          <section id="slide-appearance" class="editor-section">
+            <h2>
+              Appearance
+              <!-- <span class="section-hint">How the slide looks</span> -->
+            </h2>
+
+            <!-- LAYOUT -->
+            <div class="field">
+              <label for="slide-layout"> Layout </label>
+
+              <select id="slide-layout">
+                <!-- <option value="title">Title</option> -->
+                <option value="title-subtitle">Title + Body</option>
+                <option value="bullets">Bullet points</option>
+                <option value="chart">Chart</option>
+                <!-- <option value="blank">Blank</option> -->
+              </select>
+            </div>
+
+            <!-- COLORS -->
+            <div class="color-settings-row">
+              <div class="field color-setting">
+                <label for="slide-background">Background</label>
+                <div class="color-row">
+                  <input id="slide-background" type="color" value="#ffffff" />
+                  <span id="background-value" class="color-value">#ffffff</span>
+                </div>
+              </div>
+
+              <div class="field color-setting">
+                <label for="text-color">Text color</label>
+                <div class="color-row">
+                  <input id="text-color" type="color" value="#111827" />
+                  <span id="text-color-value" class="color-value">#111827</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TEXT ALIGNMENT -->
+            <div class="field">
+              <label>Text alignment</label>
+              <div
+                class="alignment-toolbar"
+                role="group"
+                aria-label="Text alignment"
+              >
+                <button
+                  type="button"
+                  class="alignment-button active"
+                  data-align="left"
+                  aria-label="Align left"
+                  aria-pressed="true"
+                  title="Align left"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 6h16M4 10h11M4 14h16M4 18h11" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="alignment-button"
+                  data-align="center"
+                  aria-label="Align center"
+                  aria-pressed="false"
+                  title="Align center"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 6h16M7 10h10M4 14h16M7 18h10" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="alignment-button"
+                  data-align="right"
+                  aria-label="Align right"
+                  aria-pressed="false"
+                  title="Align right"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 6h16M9 10h11M4 14h16M9 18h11" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- CONTENT -->
+          <section id="slide-content-section" class="editor-section content-section">
+            <h2>
+              Content
+              <!-- <span class="section-hint">What the slide says</span> -->
+            </h2>
+
+            <!-- TITLE -->
+            <div class="field">
+              <label for="slide-title"> Title </label>
+
+              <input id="slide-title" type="text" placeholder="Slide title" />
+            </div>
+
+            <!-- IMAGE -->
+            <div class="field" id="image-field">
+              <label for="slide-image-url">Image URL</label>
+              <input
+                id="slide-image-url"
+                type="url"
+                placeholder="https://example.com/image.jpg"
+              />
+              <p class="field-help">Paste a direct link to an image.</p>
+              <p id="image-status" class="image-status" aria-live="polite"></p>
+            </div>
+
+            <!-- SUBTITLE -->
+            <div id="subtitle-field" class="field">
+              <label for="slide-subtitle"> Subtitle </label>
+
+              <textarea
+                id="slide-subtitle"
+                placeholder="Optional subtitle"
+              ></textarea>
+            </div>
+
+            <!-- BULLETS -->
+            <div id="bullets-field" class="field">
+              <label for="slide-bullets"> Bullet points </label>
+
+              <textarea
+                id="slide-bullets"
+                placeholder="One bullet point per line"
+              ></textarea>
+            </div>
+
+            <!-- CHART CONTROLS -->
+            <div id="chart-fields" class="chart-fields">
+              <div class="field">
+                <label for="chart-type"> Chart type </label>
+
+                <select id="chart-type">
+                  <option value="bar">Bar</option>
+                  <option value="line">Line</option>
+                  <option value="pie">Pie</option>
+                  <option value="doughnut">Doughnut</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="chart-series"> Series name </label>
+
+                <input id="chart-series" type="text" placeholder="Series" />
+              </div>
+
+              <div class="field">
+                <label for="chart-labels"> Labels </label>
+
+                <textarea
+                  id="chart-labels"
+                  placeholder="One label per line&#10;Q1&#10;Q2&#10;Q3&#10;Q4"
+                ></textarea>
+              </div>
+
+              <div class="field">
+                <label for="chart-values"> Values </label>
+
+                <textarea
+                  id="chart-values"
+                  placeholder="One number per line&#10;120&#10;180&#10;150&#10;220"
+                ></textarea>
+              </div>
+
+              <p class="field-help">
+                Labels and values must have the same number of lines.
+              </p>
+            </div>
+
+            <!-- REFERENCES -->
+            <div class="field">
+              <label for="slide-references"> Sources </label>
+
+              <textarea
+                id="slide-references"
+                placeholder="One source per line"
+              ></textarea>
+            </div>
+          </section>
+
+          <!-- DELETE -->
+          <section class="editor-section">
+            <button id="delete-slide" class="button danger" type="button">
+              Delete slide
+            </button>
+          </section>
+        </aside>
+
+        <!-- PREVIEW -->
+        <main class="builder-preview">
+          <div class="preview-toolbar">
+            <div class="preview-toolbar-left">
+              <button id="previous-slide" type="button" title="Previous slide">
+                ←
+              </button>
+
+              <span id="slide-counter" class="slide-counter"> 1 / 1 </span>
+
+              <button id="next-slide" type="button" title="Next slide">
+                →
+              </button>
+            </div>
+
+            <div class="import-group">
+              <input
+                id="import-url"
+                class="import-input"
+                type="text"
+                placeholder="Paste a slideshow link to import"
+                aria-label="Slideshow URL to import"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button id="import-slideshow" type="button">Import</button>
+            </div>
+
+            <div class="preview-toolbar-right">
+              <span
+                id="save-status"
+                class="save-status"
+                aria-live="polite"
+              ></span>
+
+              <button
+                id="import-toggle"
+                class="import-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="import-url"
+              >
+                Import
+              </button>
+
+              <button
+                id="new-slideshow"
+                type="button"
+                title="Delete the saved presentation and start a new one"
+              >
+                New
+              </button>
+
+              <!-- <button id="preview-slideshow" type="button">Preview</button> -->
+
+              <button id="share-slideshow" type="button">Share</button>
+              <button id="generate-qr-button" type="button">QR Code</button>
+            </div>
+          </div>
+
+          <div class="preview-stage">
+            <div id="slide-preview" class="slide">
+              <div class="slide-content">
+                <h1 class="slide-title">My presentation</h1>
+
+                <p class="slide-subtitle">A simple slideshow</p>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+
+    <!-- QR CODE POPUP! -->
+    <div id="qr-modal" class="qr-modal" hidden>
+        <div
+            class="qr-modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="qr-modal-title"
+        >
+            <button
+                id="qr-modal-close"
+                class="qr-modal-close"
+                type="button"
+                aria-label="Close QR code popup"
+            >&times;</button>
+    
+            <h2 id="qr-modal-title">Share your slideshow</h2>
+            <p>Scan this QR code to open the presentation.</p>
+    
+            <div id="qr-code"></div>
+    
+            <button id="qr-copy-link" type="button">
+                Copy share link
+            </button>
+        </div>
+    </div>
+
+  </body>
+</html>

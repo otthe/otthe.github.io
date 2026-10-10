@@ -42,7 +42,7 @@ nav a {
   color: var(--muted);
   text-decoration: none;
   margin: 10px 0;
-  font-size: 14px;
+  font-size: 1em;
 }
 
 nav a:hover {
@@ -171,4 +171,8 @@ section li {
 
 p img {
   width:192px;
+}
+
+#sidebar img {
+  width:96px;
 }

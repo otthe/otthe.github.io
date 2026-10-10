@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow Viewer</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2" defer></script>
+
+    <script src="slideshow.js" defer></script>
+    <script src="viewer.js" defer></script>
+</head>
+<body class="viewer-page">
+    <main class="viewer">
+        <div id="viewer-error" class="viewer-error" hidden>
+            This slideshow link is invalid or incomplete.
+            Please check that you copied the full URL.
+        </div>
+
+        <div id="viewer-app" hidden>
+            <div class="viewer-toolbar">
+                <button id="viewer-previous" type="button"
+                        aria-label="Previous slide">←</button>
+
+                <span id="viewer-counter">1 / 1</span>
+
+                <button id="viewer-next" type="button"
+                        aria-label="Next slide">→</button>
+
+                <button id="viewer-fullscreen" type="button">
+                    Full screen
+                </button>
+            </div>
+
+            <div class="viewer-stage">
+                <div id="slide-preview" class="slide"></div>
+            </div>
+
+            <p class="viewer-hint">
+                Use ← and → to navigate · Esc to exit full screen
+            </p>
+
+            <!-- Available for image-loading status if your renderer uses it -->
+            <p id="image-status" class="image-status" aria-live="polite"></p>
+        </div>
+    </main>
+</body>
+</html>
